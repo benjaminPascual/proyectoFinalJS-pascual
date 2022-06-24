@@ -39,7 +39,6 @@ function guardarProducto(producto){
 }
 
 btnCalcular.addEventListener("click", ()=>{
-	e.preventDefault();
 	let nuevoProducto = crearProducto(id, nombre, categoria, tipo, costo);
 	guardarProducto(nuevoProducto);
 	console.log(stock);
