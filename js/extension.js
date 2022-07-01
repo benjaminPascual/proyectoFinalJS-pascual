@@ -1,16 +1,17 @@
-const stock = [{id: 12, nombre: "13", categoria: "Apple", tipo: "smartphone", costo:1300},
-{id: 21, nombre: "S21", categoria: "Samsung", tipo: "smartphone", costo:1000}];
+let stock = [];
 
 // const stock= JSON.parse(localStorage.getItem("productos")) || [];
 
-const imputId = document.getElementById("imputId"),
-	imputNombre = document.getElementById("imputNombre"),
-	imputCategoria = document.getElementById("imputCategoria"),
-	imputTipo = document.getElementById("imputTipo"),
-	imputCosto = document.getElementById("imputCosto"),
-	// imputGanancia = document.getElementById("imputGanancia"),
-	gridCheck = document.getElementById("gridCheck"),	
-	btnCalcular = document.getElementById("btnCalcular");
+let inputId = document.querySelector("#inputId"),
+	inputNombre = document.querySelector("#inputNombre"),
+	inputCategoria = document.querySelector("#inputCategoria"),
+	inputTipo = document.querySelector("#inputTipo"),
+	inputCosto = document.querySelector("#inputCosto"),
+	// imputGanancia = document.querySelector("#inputGanancia"),
+	gridCheck = document.querySelector("#gridCheck"),	
+	btnCalcular = document.querySelector("#btnCalcular"),
+	btnLimpiar = document.querySelector("#btnLimpiar");
+
 
 class Productos{
 	constructor(id, nombre, categoria, tipo, costo){
@@ -23,11 +24,11 @@ class Productos{
 }
 
 function crearProducto(id, nombre, categoria, tipo, costo){
-	id = imputId.value
-	nombre = imputNombre.value
-	categoria = imputCategoria.value
-	tipo = imputTipo.value
-	costo = imputCosto.value
+	id = inputId.value;
+	nombre = inputNombre.value;
+	categoria = inputCategoria.value;
+	tipo = inputTipo.value;
+	costo = inputCosto.value;
 
 	const prod = new Productos(id, nombre, categoria, tipo, costo);
 	return prod;
@@ -48,28 +49,24 @@ function recuperarLS () {
 	return prod;
 }
 
-const productosLS= recuperarLS();
+let productosLS= recuperarLS();
 
-btnCalcular.addEventListener("click", (e)=> {
-	e.preventDefault();
-	let nuevoProducto = crearProducto()
-	guardarProducto(nuevoProducto)
-	console.log(stock)
-	// guardarLS(stock)
-	// mostrarProductos()
-})
-// let nuevoProducto = crearProducto(11, "sdkgns", "kgsd", "sdkvnsd", 124634)
-// 	guardarProducto(nuevoProducto)
-// guardarLS(stock)
+function limpiarCampos() {
+	inputId.value = ""
+	inputNombre.value = ""
+	inputCategoria.value = ""
+	inputTipo.value = ""
+	inputCosto.value = ""
+}
 
-const contenedorId = document.getElementById("contenedorId"),
+let contenedorId = document.getElementById("contenedorId"),
 contenedorNombre = document.getElementById("contenedorNombre"),
 contenedorCategoria= document.getElementById("contenedorCategoria"),
 contenedorCosto = document.getElementById("contenedorCosto"),
 contenedorTipo = document.getElementById("contenedorTipo"),
 contenedorPrecio = document.getElementById("contenedorPrecio");
 
-function mostrarProductos() {
+function mostrarProductosIndex() {
 	productosLS.forEach(el =>{
 		let liId = document.createElement("li")
 			liId.className = "list-group-item"
@@ -91,11 +88,28 @@ function mostrarProductos() {
 			liTipo.className = "list-group-item"
 			liTipo.innerText = `${el.tipo}`
 			contenedorTipo.appendChild(liTipo)
-		let liPrecio = document.createElement("li")
-			liPrecio.className = "list-group-item"
-			liPrecio.innerText = `${el.precio}`
-			contenedorPrecio.appendChild(liPrecio)
+		// let liPrecio = document.createElement("li")
+		// 	liPrecio.className = "list-group-item"
+		// 	liPrecio.innerText = `${el.precio}`
+		// 	contenedorPrecio.appendChild(liPrecio)
 
 	})
 }
+
+btnLimpiar.addEventListener("click", (e)=>{
+	e.preventDefault();
+	limpiarCampos();
+})
+
+btnCalcular.addEventListener("click", (e)=> {
+	e.preventDefault();
+	let nuevoProducto = crearProducto();
+	guardarProducto(nuevoProducto);
+	guardarLS(stock);
+	mostrarProductosIndex();
+
+})
+
+
+
 
