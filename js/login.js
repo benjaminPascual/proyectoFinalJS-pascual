@@ -7,9 +7,22 @@ function logIn(usuario) {
 		return usuario.email === inputMail.value && usuario.pass ===inputPassw.value;
 	});
 	if (user){
-		window.location.href="pages/productos.html";
+		Swal.fire(
+		  'Bienvenido/a!',
+		  'Has click en OK para continuar',
+		  'success'
+		)
+		setTimeout(()=>{
+			window.location.href="pages/productos.html";
+		}, 2000)
+		
 	}else {
-		alert("usuario no encontrado")
+		Swal.fire({
+		  icon: 'error',
+		  title: 'Oops...',
+		  text: 'Usuario y/o Contraseña incorrecto',
+		  footer: '<a href="pages/register.html">¿aun no te registraste?</a>'
+		})
 	}
 }
 function recuperarLS () {

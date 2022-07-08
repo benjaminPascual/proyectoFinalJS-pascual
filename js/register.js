@@ -1,4 +1,4 @@
-let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+// let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
 const inputEmail = document.querySelector("#r-inputEmail"),
 	  inputPass = document.querySelector("#r-inputPassword"),
@@ -44,5 +44,11 @@ btnRegist.addEventListener("click", (e)=>{
 	guardarUser(nuevoUser);
 	guardarLS(usuarios);
 	limpiarCampos();
-	console.log(usuarios);
+	Swal.fire({
+	  position: 'center',
+	  icon: 'success',
+	  title: 'Your work has been saved',
+	  showConfirmButton: false,
+	  timer: 2000
+	})
 })
