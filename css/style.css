@@ -5,8 +5,11 @@
 	justify-content: center;
 }
 #listaProductos{
-	padding: 60px 100px;
+	padding: 60px 10px;
 }
 form{
 	margin: 100px 200px;
+}
+.form-control{
+	margin: 5px;
 }

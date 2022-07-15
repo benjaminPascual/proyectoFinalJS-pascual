@@ -3,7 +3,6 @@ let inputId = document.querySelector("#inputId"),
 	inputCategoria = document.querySelector("#inputCategoria"),
 	inputTipo = document.querySelector("#inputTipo"),
 	inputCosto = document.querySelector("#inputCosto"),
-	// imputGanancia = document.querySelector("#inputGanancia"),
 	gridCheck = document.querySelector("#gridCheck"),	
 	btnCalcular = document.querySelector("#btnCalcular"),
 	btnLimpiar = document.querySelector("#btnLimpiar");
@@ -16,6 +15,7 @@ class Productos{
 		this.categoria=categoria;
 		this.tipo=tipo;
 		this.costo=costo;
+		this.precio=0
 	}
 }
 
