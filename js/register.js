@@ -38,17 +38,37 @@ function guardarLS(el){
 	return userGuardado;
 }
 
+
 btnRegist.addEventListener("click", (e)=>{
 	e.preventDefault();
-	let nuevoUser=crearUsuario();
-	guardarUser(nuevoUser);
-	guardarLS(usuarios);
-	limpiarCampos();
-	Swal.fire({
-	  position: 'center',
-	  icon: 'success',
-	  title: 'Your work has been saved',
-	  showConfirmButton: false,
-	  timer: 2000
-	})
+	let mailExistente = usuarios.find(ele=> ele.email == inputEmail.value) 
+	if(inputEmail.value==="" || inputPass.value==="" || inputNom.value==="" || inputApe.value===""){
+		Swal.fire({
+		  icon: 'error',
+		  title: 'Oops...',
+		  text: 'Alguno de los campos esta vacio!'
+		})
+		
+	}else if(mailExistente){
+		Swal.fire({
+		  icon: 'info',
+		  title: 'MAIL existente!',
+		  text: '',
+		  footer: '<a href="">¿Olvidaste la contraseña?</a>'
+		})
+		
+	}else {
+		e.preventDefault();
+		let nuevoUser = crearUsuario();
+		guardarUser(nuevoUser);
+		guardarLS(usuarios);
+		limpiarCampos();
+		Swal.fire({
+		  position: 'center',
+		  icon: 'success',
+		  title: 'Registro exitoso!',
+		  showConfirmButton: false,
+		  timer: 2000
+		})
+	}
 })

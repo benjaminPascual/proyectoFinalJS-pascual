@@ -4,114 +4,95 @@ conteinerCategoria= document.querySelector("#conteinerCategoria"),
 conteinerCosto = document.querySelector("#conteinerCosto"),
 conteinerTipo = document.querySelector("#conteinerTipo"),
 conteinerPrecio = document.querySelector("#conteinerPrecio"),
+conteinerDel=document.querySelector("#conteinerDel"),
 inputGanancia = document.querySelector(".form-control");
 
+const contenedorProductos=document.querySelector("#contenedorProductos")
 
-function mostrarProductos() {
-	stock.forEach(el =>{
-		let liId = document.createElement("li")
-			liId.className = "list-group-item"
-			liId.innerText = `${el.id}`
-			conteinerId.appendChild(liId)
+function guardarLS(el){
+	let arrayGuardado= localStorage.setItem("productos", JSON.stringify(el));
+	return arrayGuardado;
+}
 
-		let liNombre = document.createElement("li")
-			liNombre.className = "list-group-item"
-			liNombre.innerText = `${el.nombre}`
-			conteinerNombre.appendChild(liNombre)
-			
-		let liCategoria = document.createElement("li")
-			liCategoria.className = "list-group-item"
-			liCategoria.innerText = `${el.categoria}`
-			conteinerCategoria.appendChild(liCategoria)
+function mostrar() {
+	stock.forEach((el)=>{
+		let nuevo=document.createElement("tr")
+		nuevo.innerHTML=`<td>${el.id}</td>
+						         <td>${el.nombre}</td>
+						         <td>${el.categoria}</td>
+						         <td>${el.tipo}</td>
+						         <td><input type="number" id="inputCosto${el.id}" value="${el.costo}"></td>
+						         <td><input type="number" id="inputGanancia${el.id}" value="${el.ganancia}"></td>
+						         <td id="tdPrecio${el.id}">${el.precio}</td>
+						         <button type="submit" class="btn btn-secondary" id="btnDel${el.id}">
+						         	<img src="https://icongr.am/fontawesome/trash.svg?size=20&color=ffffff" alt="">
+						         </button>
+						         `
+					    
+		contenedorProductos.appendChild(nuevo)
 
-		let liCosto = document.createElement("input")
-			liCosto.className = "form-control"
-			liCosto.setAttribute("type","number")
-			liCosto.setAttribute("id","inputCosto"+`${el.id}`)
-			liCosto.value=`${el.costo}`
-			conteinerCosto.appendChild(liCosto)
-			
-		let liTipo = document.createElement("li")
-			liTipo.className = "list-group-item"
-			liTipo.innerText = `${el.tipo}`
-			conteinerTipo.appendChild(liTipo)
+	let inputsGanancia = document.getElementById(`inputGanancia${el.id}`)
+	let inputsCosto = document.getElementById(`inputCosto${el.id}`)
+	let btnsDel = document.getElementById(`btnDel${el.id}`)
+	let tdPrecio = document.getElementById(`tdPrecio${el.id}`)
 
-		let liGanancia = document.createElement("input")
-			liGanancia.className = "form-control"
-			liGanancia.setAttribute("type","number")
-			liGanancia.setAttribute("id","inputGanancia"+`${el.id}`)
-			conteinerGanancia.appendChild(liGanancia)
+		inputsCosto.addEventListener("input", ()=>{
+			let idProducto = `${el.id}`
+			let precio = inputsCosto.value * (1+(inputsGanancia.value)/100)
+			let productoActualizado = stock.find((el) => el.id === idProducto)
+			productoActualizado.precio = precio
+			productoActualizado.costo = inputsCosto.value
+			productoActualizado.ganancia = inputsGanancia.value
+			tdPrecio.innerText = `${el.precio}`
+		})
 
-		let liPrecio = document.createElement("li")
-			liPrecio.className = "list-group-item"
-			liPrecio.setAttribute("id","liPrecio"+`${el.id}`)
-			conteinerPrecio.appendChild(liPrecio)
+		inputsGanancia.addEventListener("input", ()=>{
+			let idProducto = `${el.id}`
+			let precio = inputsCosto.value * (1+(inputsGanancia.value)/100)
+			let productoActualizado = stock.find((el) => el.id === idProducto)
+			productoActualizado.precio = precio
+			productoActualizado.costo = inputsCosto.value
+			productoActualizado.ganancia = inputsGanancia.value
+			tdPrecio.innerText = `${el.precio}`
+		})
 
-		let inputs = document.getElementById(`inputGanancia${el.id}`)
-		let inputsCostos=document.getElementById(`inputCosto${el.id}`)
-		inputsCostos.addEventListener("input", ()=>{
-				// console.log(inputsCostos.value)
-			let precio = inputsCostos.value * (1+(inputs.value)/100)
-			let nuevoPrecio = document.getElementById(`liPrecio${el.id}`)
-			nuevoPrecio.innerText = precio
+		btnsDel.addEventListener("click", ()=>{
+			Swal.fire({
+			  title: 'Eliminar producto!',
+			  text: "¿Desea continuar?",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Si eliminar!'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			    Swal.fire(
+			      'Eliminado!',
+			      'Usted acaba de eliminar un producto',
+			      'ok'
+			    )
+
+			    btnsDel.parentElement.remove()
+				let id = el.id
+				stock = stock.filter((item)=> item.id !== id)
+				guardarLS(stock)
+			  }
+			})
 		})
 	})
 }
 
-mostrarProductos();
+mostrar();
 
-const url= "../js/datos.json";
+
+
+
+const url= "./js/datos.json";
 async function mostrarProd(){
 	const datos= await fetch(url);
 	const productos= await datos.json();
 	
-	productos.forEach(el =>{
-		let liId = document.createElement("li")
-			liId.className = "list-group-item"
-			liId.innerText = `${el.id}`
-			conteinerId.appendChild(liId)
-
-		let liNombre = document.createElement("li")
-			liNombre.className = "list-group-item"
-			liNombre.innerText = `${el.nombre}`
-			conteinerNombre.appendChild(liNombre)
-			
-		let liCategoria = document.createElement("li")
-			liCategoria.className = "list-group-item"
-			liCategoria.innerText = `${el.categoria}`
-			conteinerCategoria.appendChild(liCategoria)
-
-		let liCosto = document.createElement("input")
-			liCosto.className = "form-control"
-			liCosto.setAttribute("type","number")
-			liCosto.setAttribute("id","inputCosto"+`${el.id}`)
-			liCosto.value=`${el.costo}`
-			conteinerCosto.appendChild(liCosto)
-			
-		let liTipo = document.createElement("li")
-			liTipo.className = "list-group-item"
-			liTipo.innerText = `${el.tipo}`
-			conteinerTipo.appendChild(liTipo)
-
-		let liGanancia = document.createElement("input")
-			liGanancia.className = "form-control"
-			liGanancia.setAttribute("type","number")
-			liGanancia.setAttribute("id","inputGanancia"+`${el.id}`)
-			conteinerGanancia.appendChild(liGanancia)
-
-		let liPrecio = document.createElement("li")
-			liPrecio.className = "list-group-item"
-			liPrecio.setAttribute("id","liPrecio"+`${el.id}`)
-			conteinerPrecio.appendChild(liPrecio)
-
-		let inputs = document.getElementById(`inputGanancia${el.id}`)
-		let inputsCostos=document.getElementById(`inputCosto${el.id}`)
-		inputsCostos.addEventListener("input", ()=>{
-				// console.log(inputsCostos.value)
-			let precio = inputsCostos.value * (1+(inputs.value)/100)
-			let nuevoPrecio = document.getElementById(`liPrecio${el.id}`)
-			nuevoPrecio.innerText = precio
-		})
-	})
 }
+
 // mostrarProd()
