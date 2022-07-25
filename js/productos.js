@@ -26,9 +26,7 @@ function mostrar() {
 						         <td id="tdPrecio${el.id}">${el.precio}</td>
 						         <button type="submit" class="btn btn-secondary" id="btnDel${el.id}">
 						         	<img src="https://icongr.am/fontawesome/trash.svg?size=20&color=ffffff" alt="">
-						         </button>
-						         `
-					    
+						         </button>`
 		contenedorProductos.appendChild(nuevo)
 
 	let inputsGanancia = document.getElementById(`inputGanancia${el.id}`)
@@ -44,6 +42,13 @@ function mostrar() {
 			productoActualizado.costo = inputsCosto.value
 			productoActualizado.ganancia = inputsGanancia.value
 			tdPrecio.innerText = `${el.precio}`
+
+			let id = el.id
+			stock = stock.filter((item)=> item.id !== id)
+				
+			stock.push(productoActualizado);
+
+			guardarLS(stock)
 		})
 
 		inputsGanancia.addEventListener("input", ()=>{
@@ -54,6 +59,13 @@ function mostrar() {
 			productoActualizado.costo = inputsCosto.value
 			productoActualizado.ganancia = inputsGanancia.value
 			tdPrecio.innerText = `${el.precio}`
+
+			let id = el.id
+			stock = stock.filter((item)=> item.id !== id)
+				
+			stock.push(productoActualizado);
+
+			guardarLS(stock)
 		})
 
 		btnsDel.addEventListener("click", ()=>{

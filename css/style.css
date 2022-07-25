@@ -21,3 +21,25 @@ form{
 	width: 20px;
 	height: 20px;
 }
+
+table{
+  margin: 60px 0px;
+}
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #E1E1E1; }
+th:first-child,
+td:first-child {
+  padding-left: 20px; }
+th:last-child,
+td:last-child {
+  padding-right: 20px; }
+
+#newCat{
+	margin-top: 60px;
+}
+#btnNewCat{
+	margin-top: 37px;
+}

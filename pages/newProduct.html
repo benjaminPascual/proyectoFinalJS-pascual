@@ -46,7 +46,11 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>Categoria</label>
-            <input type="text" class="form-control" id="inputCategoria">
+            <div>
+              <select name="" id="inputCategoria">
+                <option value="all">Todos</option>
+              </select>
+            </div>
           </div>
           <div class="form-group col-md-6">
             <label>Tipo</label>
@@ -63,8 +67,17 @@
             <input type="number" class="form-control" id="inputGanancia">
           </div>
         </div>
-        <button type="submit" class="btn btn-secondary" id="btnCalcular">Agregar</button>
+        <button type="submit" class="btn btn-secondary" id="btnAgregar">Agregar</button>
         <button type="submit" class="btn btn-secondary" id="btnLimpiar">Limpiar Campos</button>
+        <div class="form-row" id="newCat">
+          <div class="form-group col-md-6">
+            <label>Nueva Categoria</label>
+            <input type="text" class="form-control" id="inputNewCat">
+          </div>
+          <div class="form-group col-md-6">
+            <button type="submit" class="btn btn-secondary" id="btnNewCat">Agregar Categoria</button>
+          </div>
+        </div>
       </form>
     </main>
     <footer>

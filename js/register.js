@@ -1,5 +1,3 @@
-// let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
 const inputEmail = document.querySelector("#r-inputEmail"),
 	  inputPass = document.querySelector("#r-inputPassword"),
 	  inputNom = document.querySelector("#r-inputNombre"),
@@ -48,15 +46,25 @@ btnRegist.addEventListener("click", (e)=>{
 		  title: 'Oops...',
 		  text: 'Alguno de los campos esta vacio!'
 		})
-		
+
 	}else if(mailExistente){
 		Swal.fire({
 		  icon: 'info',
 		  title: 'MAIL existente!',
 		  text: '',
-		  footer: '<a href="">¿Olvidaste la contraseña?</a>'
+		  footer: '<a href="" id="aMail">¿Olvidaste la contraseña?</a>'
 		})
-		
+		let aMail =document.querySelector("#aMail")
+		aMail.addEventListener("click", (e)=>{
+			e.preventDefault();
+			Swal.fire({
+				icon: 'info',
+				title: 'Hemos enviado un instructivo a',
+				text: mailExistente.email
+			})
+			limpiarCampos()
+		})
+
 	}else {
 		e.preventDefault();
 		let nuevoUser = crearUsuario();
