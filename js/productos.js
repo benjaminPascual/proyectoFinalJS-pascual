@@ -5,7 +5,9 @@ conteinerCosto = document.querySelector("#conteinerCosto"),
 conteinerTipo = document.querySelector("#conteinerTipo"),
 conteinerPrecio = document.querySelector("#conteinerPrecio"),
 conteinerDel=document.querySelector("#conteinerDel"),
-inputGanancia = document.querySelector(".form-control");
+// inputGanancia = document.querySelector(".form-control"),
+selectCat = document.querySelector("#selectCat"),
+selectType = document.querySelector("#selectType");
 
 const contenedorProductos=document.querySelector("#contenedorProductos")
 
@@ -97,8 +99,25 @@ function mostrar() {
 
 mostrar();
 
+function agregarCats() {
+	categorias.forEach((el)=>{
+		let nueva = document.createElement("option")
+		nueva.setAttribute('value', el)
+		nueva.innerText = el
+		selectCat.appendChild(nueva)
+	})
+}
+function agregarTypes() {
+	tipos.forEach((el)=>{
+		let nueva = document.createElement("option")
+		nueva.setAttribute('value', el)
+		nueva.innerText = el
+		selectType.appendChild(nueva)
+	})
+}
 
-
+agregarCats()
+agregarTypes()
 
 const url= "./js/datos.json";
 async function mostrarProd(){

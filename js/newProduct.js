@@ -44,7 +44,6 @@ function guardarLS(el){
 	return prodGuardado;
 }
 
-
 function limpiarCampos() {
 	inputId.value = ""
 	inputNombre.value = ""
@@ -54,6 +53,58 @@ function limpiarCampos() {
 	inputGanancia.value = ""
 	inputNewCat.value = ""
 }
+
+function agregarCats() {
+	categorias.forEach((el)=>{
+		let nueva = document.createElement("option")
+		nueva.setAttribute('value', el)
+		nueva.innerText = el
+		inputCategoria.appendChild(nueva)
+	})
+}
+
+function guardarType() {
+	let tipo = inputTipo.value
+		tipos.push(tipo)
+		localStorage.setItem("type", JSON.stringify(tipos))
+}
+
+agregarCats()
+
+btnAgregar.addEventListener("click", (e)=> {
+	e.preventDefault();
+	let idExistente = stock.find(ele=> ele.id === inputId.value)
+	let nombreExistente = stock.find(ele=> ele.nombre === inputNombre.value)
+	let tipoExistente = stock.find(ele=> ele.tipo === inputTipo.value)
+	let prodExitente = nombreExistente && tipoExistente
+	if(idExistente || prodExitente){
+		Swal.fire({
+		  icon: 'error',
+		  title: 'Oops...',
+		  text: 'Este producto ya existe!'
+		})
+	}else if(inputId.value===""||inputNombre.value===""||inputTipo.value===""||inputCosto.value===""||inputGanancia.value===""){
+		Swal.fire({
+		  icon: 'error',
+		  title: 'Oops...',
+		  text: 'No inresaste un ID y/o alguno de los campos esta vacio'
+		})
+	}else{
+		let nuevoProducto = crearProducto();
+		let typeExistente = tipos.find(ele=> ele !== inputTipo.value)
+		if(typeExistente){guardarType();}
+		guardarProducto(nuevoProducto);
+		guardarLS(stock);
+		Swal.fire({
+		  position: 'center',
+		  icon: 'success',
+		  title: 'Producto agregado correctamente!',
+		  showConfirmButton: false,
+		  timer: 2000
+		})
+	}
+	
+})
 
 btnLimpiar.addEventListener("click", (e)=>{
 	e.preventDefault();
@@ -75,47 +126,6 @@ btnLimpiar.addEventListener("click", (e)=>{
 	  title: 'Campos limpiados'
 	})
 })
-
-btnAgregar.addEventListener("click", (e)=> {
-	e.preventDefault();
-	let idExistente = stock.find(ele=> ele.id === inputId.value)
-	if(idExistente){
-		Swal.fire({
-		  icon: 'error',
-		  title: 'Oops...',
-		  text: 'Este producto ya existe!'
-		})
-	}else if(inputId.value===""||inputNombre.value===""||inputTipo.value===""||inputCosto.value===""||inputGanancia.value===""){
-		Swal.fire({
-		  icon: 'error',
-		  title: 'Oops...',
-		  text: 'No inresaste un ID y/o alguno de los campos esta vacio'
-		})
-	}else{
-		let nuevoProducto = crearProducto();
-		guardarProducto(nuevoProducto);
-		guardarLS(stock);
-		Swal.fire({
-		  position: 'center',
-		  icon: 'success',
-		  title: 'Producto agregado correctamente!',
-		  showConfirmButton: false,
-		  timer: 2000
-		})
-	}
-	
-})
-
-function agregarCats() {
-	categorias.forEach((el)=>{
-		let nueva = document.createElement("option")
-		nueva.setAttribute('value', el)
-		nueva.innerText = el
-		inputCategoria.appendChild(nueva)
-	})
-}
-
-agregarCats()
 
 btnNewCat.addEventListener("click",(e)=>{
 	e.preventDefault()
