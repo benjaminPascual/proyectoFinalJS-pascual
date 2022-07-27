@@ -16,8 +16,11 @@ function guardarLS(el){
 	return arrayGuardado;
 }
 
-function mostrar() {
-	stock.forEach((el)=>{
+function mostrar(array) {
+
+	contenedorProductos.innerHTML = ""
+
+	array.forEach((el)=>{
 		let nuevo=document.createElement("tr")
 		nuevo.innerHTML=`<td>${el.id}</td>
 						         <td>${el.nombre}</td>
@@ -97,8 +100,6 @@ function mostrar() {
 	})
 }
 
-mostrar();
-
 function agregarCats() {
 	categorias.forEach((el)=>{
 		let nueva = document.createElement("option")
@@ -116,8 +117,28 @@ function agregarTypes() {
 	})
 }
 
+mostrar(stock);
+
 agregarCats()
 agregarTypes()
+
+selectCat.addEventListener("change", ()=>{
+	if(selectCat.value === "all"){
+		mostrar(stock)
+	}else{
+		let productoFiltrado = stock.filter(item => item.categoria === selectCat.value);
+		mostrar(productoFiltrado);
+	}
+})
+
+selectType.addEventListener("change", ()=>{
+	if(selectType.value === "all"){
+		mostrar(stock)
+	}else{
+		let productoFiltrado = stock.filter(item => item.tipo === selectType.value);
+		mostrar(productoFiltrado);
+	}
+})
 
 const url= "./js/datos.json";
 async function mostrarProd(){
