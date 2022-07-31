@@ -7,7 +7,10 @@ let inputId = document.querySelector("#inputId"),
 	btnAgregar = document.querySelector("#btnAgregar"),
 	btnLimpiar = document.querySelector("#btnLimpiar"),
 	btnNewCat = document.querySelector("#btnNewCat"),
-	inputNewCat = document.querySelector("#inputNewCat");
+	inputNewCat = document.querySelector("#inputNewCat"),
+	inputDelCat = document.querySelector("#inputDelCat"),
+	inputDelType = document.querySelector("#inputDelType"),
+	btnQuitar = document.querySelector("#btnQuitar");
 
 class Productos{
 	constructor(id, nombre, categoria, tipo, costo, ganancia){
@@ -28,7 +31,7 @@ function crearProducto(id, nombre, categoria, tipo, costo, ganancia){
 	tipo = inputTipo.value;
 	costo = inputCosto.value;
 	ganancia = inputGanancia.value;
-	precio = inputCosto.value * (1 + (inputGanancia.value)/100)
+	precio = Math.round((inputCosto.value * (1 + (inputGanancia.value)/100))*100)/100
 
 	const prod = new Productos(id, nombre, categoria, tipo, costo, ganancia);
 	return prod;
@@ -74,10 +77,10 @@ agregarCats()
 btnAgregar.addEventListener("click", (e)=> {
 	e.preventDefault();
 	let idExistente = stock.find(ele=> ele.id === inputId.value)
-	let nombreExistente = stock.find(ele=> ele.nombre === inputNombre.value)
-	let tipoExistente = stock.find(ele=> ele.tipo === inputTipo.value)
-	let prodExitente = nombreExistente && tipoExistente
-	if(idExistente || prodExitente){
+	let nombreExistente = stock.filter(ele=> ele.nombre === inputNombre.value)
+	let prodExistente = nombreExistente.find(ele=>ele.tipo === inputTipo.value)
+	
+	if(idExistente || prodExistente){
 		Swal.fire({
 		  icon: 'error',
 		  title: 'Oops...',
@@ -89,10 +92,16 @@ btnAgregar.addEventListener("click", (e)=> {
 		  title: 'Oops...',
 		  text: 'No inresaste un ID y/o alguno de los campos esta vacio'
 		})
+	}else if(inputCategoria.value==="all"){
+		Swal.fire({
+		  icon: 'error',
+		  title: 'Oops...',
+		  text: 'Selecciona una categoria!'
+		})
 	}else{
 		let nuevoProducto = crearProducto();
-		let typeExistente = tipos.find(ele=> ele !== inputTipo.value)
-		if(typeExistente){guardarType();}
+		let typeExistente = tipos.some(ele=> ele === inputTipo.value)
+		if(typeExistente){}else{guardarType();}
 		guardarProducto(nuevoProducto);
 		guardarLS(stock);
 		Swal.fire({
@@ -103,7 +112,6 @@ btnAgregar.addEventListener("click", (e)=> {
 		  timer: 2000
 		})
 	}
-	
 })
 
 btnLimpiar.addEventListener("click", (e)=>{
@@ -165,6 +173,41 @@ btnNewCat.addEventListener("click",(e)=>{
 	}
 })
 
-
-
-
+btnQuitar.addEventListener("click", (e)=>{
+	e.preventDefault()
+		if(inputDelCat.value !== ""){
+			categorias=categorias.filter(item=> item != inputDelCat.value)
+			localStorage.setItem("cat", JSON.stringify(categorias))
+			Swal.fire(
+			  'Categoria Eliminada!',
+			  '',
+			  'success'
+			)
+		}else if(inputDelType.value !== ""){
+			tipos=tipos.filter(item=> item != inputDelType.value)
+			localStorage.setItem("type", JSON.stringify(tipos))
+			Swal.fire(
+			  'Tipo Eliminado!',
+			  '',
+			  'success'
+			)
+		}else if(inputDelCat.value !== "" && inputDelType.value !== ""){
+			categorias=categorias.filter(item=> item != inputDelCat.value)
+			localStorage.setItem("cat", JSON.stringify(categorias))
+			tipos=tipos.filter(item=> item != inputDelType.value)
+			localStorage.setItem("type", JSON.stringify(tipos))
+			Swal.fire(
+				'Categoria y tipo Eliminados!',
+				'',
+				'success'
+			)
+		}else{
+			Swal.fire(
+				'Debe ingresar alguna Categorioa y/o Tipo',
+				'',
+				'info'
+			)
+		}
+			  
+			
+})

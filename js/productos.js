@@ -1,13 +1,14 @@
 let conteinerId = document.querySelector("#conteinerId"),
 conteinerNombre = document.querySelector("#conteinerNombre"),
-conteinerCategoria= document.querySelector("#conteinerCategoria"),
+conteinerCategoria = document.querySelector("#conteinerCategoria"),
 conteinerCosto = document.querySelector("#conteinerCosto"),
 conteinerTipo = document.querySelector("#conteinerTipo"),
 conteinerPrecio = document.querySelector("#conteinerPrecio"),
-conteinerDel=document.querySelector("#conteinerDel"),
-// inputGanancia = document.querySelector(".form-control"),
+conteinerDel = document.querySelector("#conteinerDel"),
 selectCat = document.querySelector("#selectCat"),
-selectType = document.querySelector("#selectType");
+selectType = document.querySelector("#selectType"),
+selectCost = document.querySelector("#selectCost"),
+btnSelectCost = document.querySelector("#btnSelectCost");
 
 const contenedorProductos=document.querySelector("#contenedorProductos")
 
@@ -39,9 +40,9 @@ function mostrar(array) {
 	let btnsDel = document.getElementById(`btnDel${el.id}`)
 	let tdPrecio = document.getElementById(`tdPrecio${el.id}`)
 
-		inputsCosto.addEventListener("input", ()=>{
-			let idProducto = `${el.id}`
-			let precio = inputsCosto.value * (1+(inputsGanancia.value)/100)
+	function actualizacion() {
+		let idProducto = `${el.id}`
+			let precio = Math.round((inputsCosto.value * (1+(inputsGanancia.value)/100))*100)/100
 			let productoActualizado = stock.find((el) => el.id === idProducto)
 			productoActualizado.precio = precio
 			productoActualizado.costo = inputsCosto.value
@@ -54,23 +55,13 @@ function mostrar(array) {
 			stock.push(productoActualizado);
 
 			guardarLS(stock)
+	}
+		inputsCosto.addEventListener("input", ()=>{
+			actualizacion();
 		})
 
 		inputsGanancia.addEventListener("input", ()=>{
-			let idProducto = `${el.id}`
-			let precio = inputsCosto.value * (1+(inputsGanancia.value)/100)
-			let productoActualizado = stock.find((el) => el.id === idProducto)
-			productoActualizado.precio = precio
-			productoActualizado.costo = inputsCosto.value
-			productoActualizado.ganancia = inputsGanancia.value
-			tdPrecio.innerText = `${el.precio}`
-
-			let id = el.id
-			stock = stock.filter((item)=> item.id !== id)
-				
-			stock.push(productoActualizado);
-
-			guardarLS(stock)
+			actualizacion();
 		})
 
 		btnsDel.addEventListener("click", ()=>{
@@ -87,7 +78,7 @@ function mostrar(array) {
 			    Swal.fire(
 			      'Eliminado!',
 			      'Usted acaba de eliminar un producto',
-			      'ok'
+			      'success'
 			    )
 
 			    btnsDel.parentElement.remove()
@@ -116,27 +107,69 @@ function agregarTypes() {
 		selectType.appendChild(nueva)
 	})
 }
-
+function mostrarFiltrado() {
+	if(selectCat.value === "all" && selectType.value==="all"){
+		mostrar(stock)
+	}else if(selectCat.value === "all" && selectType.value !== "all"){
+		let filtroType = stock.filter(item=> item.tipo === selectType.value);
+		mostrar(filtroType)
+	}else if(selectCat.value !== "all" && selectType.value === "all"){
+		let filtroCat = stock.filter(item=> item.categoria === selectCat.value);
+		mostrar(filtroCat)
+	}else {
+		let filtroCat = stock.filter(item=> item.categoria === selectCat.value);
+		let filtroAll = filtroCat.filter(item=> item.tipo === selectType.value);
+		mostrar(filtroAll)
+	}
+}
 mostrar(stock);
 
 agregarCats()
 agregarTypes()
 
 selectCat.addEventListener("change", ()=>{
-	if(selectCat.value === "all"){
-		mostrar(stock)
-	}else{
-		let productoFiltrado = stock.filter(item => item.categoria === selectCat.value);
-		mostrar(productoFiltrado);
-	}
+	mostrarFiltrado();
 })
 
 selectType.addEventListener("change", ()=>{
-	if(selectType.value === "all"){
-		mostrar(stock)
-	}else{
-		let productoFiltrado = stock.filter(item => item.tipo === selectType.value);
-		mostrar(productoFiltrado);
+	mostrarFiltrado()
+})
+
+btnSelectCost.addEventListener("click", (e)=> {
+	e.preventDefault()
+	function actualizacionCosto(array) {
+		array.forEach((el)=>{
+			let newCosto = Math.round((el.costo * (1+selectCost.value/100))*100)/100
+			let tdPrecio = document.getElementById(`tdPrecio${el.id}`)
+			let inputsCosto = document.getElementById(`inputCosto${el.id}`)
+			let idProducto = `${el.id}`
+			let precio = Math.round((newCosto * (1+(el.ganancia)/100))*100)/100
+			let productoActualizado = stock.find((el) => el.id === idProducto)
+			productoActualizado.precio = precio
+			productoActualizado.costo = newCosto
+			inputsCosto.value = `${el.costo}`
+			tdPrecio.innerText = `${el.precio}`
+
+			let id = el.id
+			stock = stock.filter((item)=> item.id !== id)
+					
+			stock.push(productoActualizado);
+
+			guardarLS(stock)
+		})
+	}
+	if(selectCat.value === "all" && selectType.value==="all"){
+		actualizacionCosto(stock)
+	}else if(selectCat.value === "all" && selectType.value !== "all"){
+		let filtroType = stock.filter(item=> item.tipo === selectType.value);
+		actualizacionCosto(filtroType)
+	}else if(selectCat.value !== "all" && selectType.value === "all"){
+		let filtroCat = stock.filter(item=> item.categoria === selectCat.value);
+		actualizacionCosto(filtroCat)
+	}else {
+		let filtroCat = stock.filter(item=> item.categoria === selectCat.value);
+		let filtroAll = filtroCat.filter(item=> item.tipo === selectType.value);
+		actualizacionCosto(filtroAll)
 	}
 })
 
@@ -144,7 +177,8 @@ const url= "./js/datos.json";
 async function mostrarProd(){
 	const datos= await fetch(url);
 	const productos= await datos.json();
-	
+	console.log(datos)
+	console.log(productos)
 }
 
 // mostrarProd()
