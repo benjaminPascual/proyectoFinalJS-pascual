@@ -5,6 +5,8 @@
       "categoria":"Las Perdices",
       "tipo":"MALBEC",
       "costo":450,
+      "precio":630,
+      "ganancia":40
    },
    {
       "id":7798123970098,
@@ -12,6 +14,8 @@
       "categoria":"Las Perdices",
       "tipo":"MALBEC",
       "costo":690,
+      "precio":966,
+      "ganancia":40
    },
    {
       "id":7798123970166,
@@ -19,6 +23,8 @@
       "categoria":"Las Perdices",
       "tipo":"SAUVIGNON BLANC",
       "costo":690,
+      "precio":966,
+      "ganancia":40
    },
    {
       "id":7798152260634,
@@ -26,6 +32,8 @@
       "categoria":"Durigutti",
       "tipo":"MALBEC",
       "costo":1050,
+      "precio":1,
+      "ganancia":40
    },
    {
       "id":7798152260634,
@@ -33,6 +41,8 @@
       "categoria":"Durigutti",
       "tipo":"CABERNET SAUVIGNON",
       "costo":1050,
+      "precio":1470,
+      "ganancia":40
    },
    {
       "id":7798152262065,
@@ -40,6 +50,8 @@
       "categoria":"Durigutti",
       "tipo":"CABERNET SAUVIGNON",
       "costo":1050,
+      "precio":1470,
+      "ganancia":40
    },
    {
       "id":7798159944322,
@@ -47,6 +59,8 @@
       "categoria":"Mosquita Muerta",
       "tipo":"BLEND de MALBEC",
       "costo":1030,
+      "precio":1442,
+      "ganancia":40
    },
    {
       "id":7794450090492,
@@ -54,5 +68,7 @@
       "categoria":"Catena Zapata",
       "tipo":"CABERNET-MALBEC",
       "costo":1530,
+      "precio":2142,
+      "ganancia":40
    }
 ]

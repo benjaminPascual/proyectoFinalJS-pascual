@@ -22,27 +22,26 @@ function logIn(usuario) {
 		  icon: 'error',
 		  title: 'Oops...',
 		  text: 'Usuario y/o Contraseña incorrecto',
-		  footer: '<a href="pages/register.html">¿aun no te registraste?</a><a href="" id="aMail">¿Olvidaste la contraseña?</a>'
+		  footer: '<a href="pages/register.html" class="alert-link text-secondary">¿aun no te registraste?</a><a href="" id="aMail" class="alert-link text-secondary">¿Olvidaste la contraseña?</a>'
 		})
 
 		let aMail =document.querySelector("#aMail")
 		aMail.addEventListener("click", (e)=>{
 			e.preventDefault();
-			let user=usuarios.find((usuario) =>{
-				return usuario.email === inputMail.value;
-			});
-
-			console.log(user)
-			if(user){
-			Swal.fire({
-				icon: 'info',
-				title: 'Hemos enviado un instructivo a',
-				text: user.email
+			(async () => {
+			const { value: email } = await Swal.fire({
+			  title: 'Recuperar Contraseña',
+			  input: 'email',
+			  inputLabel: 'Enviaremos un instructivo.',
+			  inputPlaceholder: 'Ingrese su email'
 			})
-			limpiarCampos()
-			}else{ 
-				Swal.fire('Por favor ingrese su email')
+
+			if (email) {
+			  Swal.fire(`Hemos enviado un instructivo a: ${email}`)
 			}
+
+			})()
+			limpiarCampos()
 		})
 	}
 }

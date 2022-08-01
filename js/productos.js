@@ -181,6 +181,7 @@ btnSelectCost.addEventListener("click", (e)=> {
 btnId.addEventListener("click", (e) =>{
 	e.preventDefault();
 	stock = stock.sort((a,b) => a.id - b.id);
+	localStorage.setItem("productos", JSON.stringify(stock));
 	mostrar(stock);
 })
 
@@ -195,22 +196,30 @@ btnNombre.addEventListener("click", (e) =>{
 		}
 		return 0;
 	});
-
+	localStorage.setItem("productos", JSON.stringify(stock));
 	mostrar(stock);
 })
 
 btnPrecio.addEventListener("click", (e)=>{
 	e.preventDefault();
 	stock = stock.sort((a,b) => a.precio - b.precio);
+	localStorage.setItem("productos", JSON.stringify(stock));
 	mostrar(stock);
 })
 
-const url= "./js/datos.json";
-async function mostrarProd(){
-	const datos= await fetch(url);
-	const productos= await datos.json();
-	console.log(datos)
-	console.log(productos)
-}
+// const url= "./js/datos.json";
+// async function mostrarProd(){
+// 	const datos= await fetch(url);
+// 	const productos= await datos.json();
+// 	console.log(datos)
+// 	console.log(productos)
+// }
 
 // mostrarProd()
+
+
+fetch("../js/datos.json")
+	.then(res=>res.json())
+	.then(data=> {
+		console.log(data)
+	})

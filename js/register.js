@@ -57,11 +57,19 @@ btnRegist.addEventListener("click", (e)=>{
 		let aMail =document.querySelector("#aMail")
 		aMail.addEventListener("click", (e)=>{
 			e.preventDefault();
-			Swal.fire({
-				icon: 'info',
-				title: 'Hemos enviado un instructivo a',
-				text: mailExistente.email
+			(async () => {
+			const { value: email } = await Swal.fire({
+			  title: 'Recuperar Contraseña',
+			  input: 'email',
+			  inputLabel: 'Enviaremos un instructivo.',
+			  inputPlaceholder: 'Ingrese su email'
 			})
+
+			if (email) {
+			  Swal.fire(`Hemos enviado un instructivo a: ${email}`)
+			}
+
+			})()
 			limpiarCampos()
 		})
 
