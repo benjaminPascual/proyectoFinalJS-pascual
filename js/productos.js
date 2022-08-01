@@ -206,20 +206,3 @@ btnPrecio.addEventListener("click", (e)=>{
 	localStorage.setItem("productos", JSON.stringify(stock));
 	mostrar(stock);
 })
-
-// const url= "./js/datos.json";
-// async function mostrarProd(){
-// 	const datos= await fetch(url);
-// 	const productos= await datos.json();
-// 	console.log(datos)
-// 	console.log(productos)
-// }
-
-// mostrarProd()
-
-
-// fetch("../js/datos.json")
-// 	.then(res=>res.json())
-// 	.then(data=> {
-// 		console.log(data)
-// 	})
