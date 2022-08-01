@@ -218,8 +218,8 @@ btnPrecio.addEventListener("click", (e)=>{
 // mostrarProd()
 
 
-fetch("../js/datos.json")
-	.then(res=>res.json())
-	.then(data=> {
-		console.log(data)
-	})
+// fetch("../js/datos.json")
+// 	.then(res=>res.json())
+// 	.then(data=> {
+// 		console.log(data)
+// 	})
