@@ -59,6 +59,13 @@ btnIngresar.addEventListener("click", (e)=>{
 	logIn(usuarioLS);
 })
 
-fetch('../js/datos.json')
-  .then(response => response.json())
-  .then(json => console.log(json))
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+       // Typical action to be performed when the document is ready:
+       let data = xhttp.responseText;
+       console.log(data)
+    }
+};
+xhttp.open("GET", "datos.json", true);
+xhttp.send();
