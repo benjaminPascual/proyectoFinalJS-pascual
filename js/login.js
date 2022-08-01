@@ -67,5 +67,5 @@ xhttp.onreadystatechange = function() {
        console.log(data)
     }
 };
-xhttp.open("GET", "datos.json", true);
+xhttp.open("GET", "../js/datos.json", true);
 xhttp.send();
