@@ -43,3 +43,12 @@ td:last-child {
 .btnNew{
 	margin-top: 37px;
 }
+#selectCost{
+	width: 50%;
+	margin-left: 15px;
+}
+#btnSelectCost{
+	margin: 5px;
+  width: 38px;
+  height: 38px;
+}

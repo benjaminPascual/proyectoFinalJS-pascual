@@ -8,7 +8,10 @@ conteinerDel = document.querySelector("#conteinerDel"),
 selectCat = document.querySelector("#selectCat"),
 selectType = document.querySelector("#selectType"),
 selectCost = document.querySelector("#selectCost"),
-btnSelectCost = document.querySelector("#btnSelectCost");
+btnSelectCost = document.querySelector("#btnSelectCost"),
+btnId = document.querySelector("#btnId"),
+btnNombre = document.querySelector("#btnNombre"),
+btnPrecio = document.querySelector("#btnPrecio");
 
 const contenedorProductos=document.querySelector("#contenedorProductos")
 
@@ -23,16 +26,18 @@ function mostrar(array) {
 
 	array.forEach((el)=>{
 		let nuevo=document.createElement("tr")
-		nuevo.innerHTML=`<td>${el.id}</td>
-						         <td>${el.nombre}</td>
-						         <td>${el.categoria}</td>
-						         <td>${el.tipo}</td>
-						         <td><input type="number" id="inputCosto${el.id}" value="${el.costo}"></td>
-						         <td><input type="number" id="inputGanancia${el.id}" value="${el.ganancia}"></td>
-						         <td id="tdPrecio${el.id}">${el.precio}</td>
-						         <button type="submit" class="btn btn-secondary" id="btnDel${el.id}">
-						         	<img src="https://icongr.am/fontawesome/trash.svg?size=20&color=ffffff" alt="">
-						         </button>`
+		nuevo.innerHTML=`<td class="col-1">${el.id}</td>
+						         <td class="col-3">${el.nombre}</td>
+						         <td class="col-2">${el.categoria}</td>
+						         <td class="col-2">${el.tipo}</td>
+						         <td class="col-1"><input type="number" id="inputCosto${el.id}" value="${el.costo}"></td>
+						         <td class="col-1"><input type="number" id="inputGanancia${el.id}" value="${el.ganancia}"></td>
+						         <td class="col-1" id="tdPrecio${el.id}">${el.precio}</td>
+						         <td class="col-1">
+							         <button type="submit" class="btn btn-secondary" id="btnDel${el.id}">
+							         	<img src="https://icongr.am/fontawesome/trash.svg?size=20&color=ffffff" alt="">
+							         </button>
+						         </td>`
 		contenedorProductos.appendChild(nuevo)
 
 	let inputsGanancia = document.getElementById(`inputGanancia${el.id}`)
@@ -171,6 +176,33 @@ btnSelectCost.addEventListener("click", (e)=> {
 		let filtroAll = filtroCat.filter(item=> item.tipo === selectType.value);
 		actualizacionCosto(filtroAll)
 	}
+})
+
+btnId.addEventListener("click", (e) =>{
+	e.preventDefault();
+	stock = stock.sort((a,b) => a.id - b.id);
+	mostrar(stock);
+})
+
+btnNombre.addEventListener("click", (e) =>{
+	e.preventDefault();
+	stock = stock.sort((a,b) => {
+		if(a.nombre>b.nombre){
+			return 1;
+		}
+		if(a.nombre<b.nombre){
+			return -1;
+		}
+		return 0;
+	});
+
+	mostrar(stock);
+})
+
+btnPrecio.addEventListener("click", (e)=>{
+	e.preventDefault();
+	stock = stock.sort((a,b) => a.precio - b.precio);
+	mostrar(stock);
 })
 
 const url= "./js/datos.json";

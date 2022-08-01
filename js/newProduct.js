@@ -55,6 +55,8 @@ function limpiarCampos() {
 	inputCosto.value = ""
 	inputGanancia.value = ""
 	inputNewCat.value = ""
+	inputDelCat.value = ""
+	inputDelType.value = ""
 }
 
 function agregarCats() {
@@ -175,31 +177,34 @@ btnNewCat.addEventListener("click",(e)=>{
 
 btnQuitar.addEventListener("click", (e)=>{
 	e.preventDefault()
-		if(inputDelCat.value !== ""){
+		if(inputDelCat.value !== "" && inputDelType.value !== ""){
 			categorias=categorias.filter(item=> item != inputDelCat.value)
 			localStorage.setItem("cat", JSON.stringify(categorias))
+			tipos=tipos.filter(item=> item != inputDelType.value)
+			localStorage.setItem("type", JSON.stringify(tipos))
+			limpiarCampos()
 			Swal.fire(
-			  'Categoria Eliminada!',
-			  '',
-			  'success'
+				'Categoria y tipo Eliminados!',
+				'',
+				'success'
 			)
 		}else if(inputDelType.value !== ""){
 			tipos=tipos.filter(item=> item != inputDelType.value)
 			localStorage.setItem("type", JSON.stringify(tipos))
+			limpiarCampos()
 			Swal.fire(
 			  'Tipo Eliminado!',
 			  '',
 			  'success'
 			)
-		}else if(inputDelCat.value !== "" && inputDelType.value !== ""){
+		}else if(inputDelCat.value !== ""){
 			categorias=categorias.filter(item=> item != inputDelCat.value)
 			localStorage.setItem("cat", JSON.stringify(categorias))
-			tipos=tipos.filter(item=> item != inputDelType.value)
-			localStorage.setItem("type", JSON.stringify(tipos))
+			limpiarCampos()
 			Swal.fire(
-				'Categoria y tipo Eliminados!',
-				'',
-				'success'
+			  'Categoria Eliminada!',
+			  '',
+			  'success'
 			)
 		}else{
 			Swal.fire(
