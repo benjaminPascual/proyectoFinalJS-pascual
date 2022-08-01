@@ -58,3 +58,7 @@ btnIngresar.addEventListener("click", (e)=>{
 	e.preventDefault();
 	logIn(usuarioLS);
 })
+
+fetch('../datos.json')
+  .then(response => response.json())
+  .then(json => console.log(json))
