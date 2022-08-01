@@ -213,4 +213,4 @@ async function mostrarProd(){
 	console.log(productos)
 }
 
-// mostrarProd()
+mostrarProd()
