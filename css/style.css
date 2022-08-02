@@ -52,3 +52,12 @@ td:last-child {
   width: 38px;
   height: 38px;
 }
+
+
+.reloj{
+  position: absolute;
+  left: calc(50% - 40px);
+/*  top: calc(50% - 40px);*/
+  width: 100px;
+  height: 100px;
+}

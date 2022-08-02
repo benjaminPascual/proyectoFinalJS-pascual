@@ -1,8 +1,8 @@
-const inputEmail = document.querySelector("#r-inputEmail"),
-	  inputPass = document.querySelector("#r-inputPassword"),
-	  inputNom = document.querySelector("#r-inputNombre"),
-	  inputApe = document.querySelector("#r-inputApellido"),
-	  btnRegist = document.querySelector("#btnRegist");
+const inputEmail = document.querySelector("#email"),
+	  inputPass = document.querySelector("#pass"),
+	  inputNom = document.querySelector("#name"),
+	  inputApe = document.querySelector("#last"),
+	  btnRegist = document.querySelector("#button");
 
 class usuario{
 	constructor(email, pass, nombre, apellido){
@@ -74,7 +74,7 @@ btnRegist.addEventListener("click", (e)=>{
 		})
 
 	}else {
-		e.preventDefault();
+		e.preventDefault();       
 		let nuevoUser = crearUsuario();
 		guardarUser(nuevoUser);
 		guardarLS(usuarios);
@@ -85,6 +85,6 @@ btnRegist.addEventListener("click", (e)=>{
 		  title: 'Registro exitoso!',
 		  showConfirmButton: false,
 		  timer: 2000
-		})
+		})  
 	}
 })

@@ -21,6 +21,7 @@
             <h5 class="text-white h4">Calculadora de Productos</h5>
             <span class="text-muted"></span>
             <a href="../index.html" class="alert-link text-secondary">Inicio</a>
+            <a href="contacto.html" class="alert-link text-secondary">Contacto</a>
           </div>
         </div>
         <nav class="navbar navbar-dark bg-dark">
@@ -31,33 +32,33 @@
       </div>
     </header>
     <main>
-      <form>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label>Email</label>
-      <input type="email" class="form-control" id="r-inputEmail">
-    </div>
-    <div class="form-group col-md-6">
-      <label>Password</label>
-      <input type="password" class="form-control" id="r-inputPassword">
-    </div>
-  </div>
-  <div class="form-group">
-    <label>Nombre</label>
-    <input type="text" class="form-control" id="r-inputNombre">
-  </div>
-  <div class="form-group">
-    <label>Apellido</label>
-    <input type="text" class="form-control" id="r-inputApellido">
-  </div>
-  <button type="submit" class="btn btn-secondary" id="btnRegist">Registrarse</button>
-  <div class="alert-light" role="alert">
-    <a href="../index.html" class="alert-link">Iniciar Sesion</a>
-  </div>
-</form>
+      <form id="form">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="pass">Password</label>
+            <input type="password" class="form-control" id="pass" name="pass">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="last">Apellido</label>
+          <input type="text" class="form-control" id="last" name="last">
+        </div>
+        <button type="submit" class="btn btn-secondary" id="button">Registrarse</button> 
+        <div class="alert-light" role="alert">
+          <a href="../index.html" class="alert-link">Iniciar Sesion</a>
+        </div>
+      </form>
     </main>
     <footer>
-    	
+    	<div id="relojAnalogico" class="reloj"></div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

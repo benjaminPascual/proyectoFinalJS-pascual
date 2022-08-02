@@ -207,13 +207,3 @@ btnPrecio.addEventListener("click", (e)=>{
 	mostrar(stock);
 })
 
-// async function pedirDatos(){
-// 	const res = await fetch('https://jsonplaceholder.typicode.com/todos/1')
-// 	const data = await res.json()
-// 	console.log(data)
-// }
-// pedirDatos()
-
-fetch('../datos.json')
-  .then(response => response.json())
-  .then(json => console.log(json))
